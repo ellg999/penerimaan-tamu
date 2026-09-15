@@ -1,161 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
 * { 
     box-sizing: border-box; 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    font-family: 'Poppins', sans-serif; 
 }
 
 body { 
-    background-color: #f4f7f6; 
+    /* Gradasi warna biru gelap */
+    background: linear-gradient(135deg, #0a1128, #1c2541, #3a506b); 
+    background-attachment: fixed;
     margin: 0; 
     padding: 20px; 
-    color: #333; 
+    color: #f0f4f8; 
+    min-height: 100vh;
 }
 
-.container { 
-    max-width: 600px; 
-    margin: auto; 
-}
+.container { max-width: 600px; margin: auto; }
+.container-dashboard { max-width: 1000px; margin: auto; }
 
-.container-dashboard { 
-    max-width: 1000px; 
-    margin: auto; 
-}
+header { text-align: center; margin-bottom: 30px; }
 
-header { 
-    text-align: center; 
-    margin-bottom: 30px; 
-}
-
+/* Soft interactive text untuk navigasi */
 nav a { 
-    color: #007bff; 
+    color: #aeb8c7; 
     text-decoration: none; 
-    font-weight: bold; 
+    font-weight: 500; 
     margin: 0 10px; 
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
+nav a:hover { 
+    color: #ffffff; 
+    text-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+
+.soft-text {
+    color: #b0c4de;
+    font-weight: 300;
+}
+
+/* Card dengan efek Glassmorphism untuk kontras dengan background */
 .card { 
-    background: white; 
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 25px; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+    border-radius: 12px; 
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.3); 
     margin-bottom: 20px; 
 }
 
-.form-group { 
-    margin-bottom: 15px; 
-}
-
-label { 
-    display: block; 
-    margin-bottom: 5px; 
-    font-weight: bold; 
-}
+.form-group { margin-bottom: 15px; }
+label { display: block; margin-bottom: 5px; font-weight: 500; color: #e2e8f0; }
 
 input, select { 
     width: 100%; 
-    padding: 10px; 
-    border: 1px solid #ddd; 
-    border-radius: 5px; 
+    padding: 12px; 
+    border: 1px solid rgba(255,255,255,0.2); 
+    border-radius: 8px; 
+    background: rgba(255,255,255,0.9);
+    color: #0a1128;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    transition: box-shadow 0.3s ease;
 }
 
+input:focus, select:focus {
+    box-shadow: 0 0 10px rgba(99, 179, 237, 0.5);
+}
+
+/* Interaksi tombol */
 button { 
-    padding: 10px 15px; 
+    padding: 12px 15px; 
     border: none; 
-    border-radius: 5px; 
+    border-radius: 8px; 
     cursor: pointer; 
-    font-weight: bold; 
+    font-weight: 600; 
+    font-family: 'Poppins', sans-serif;
+    transition: transform 0.2s ease, filter 0.3s ease;
 }
 
-.btn-primary { 
-    background: #007bff; 
-    color: white; 
-    width: 100%; 
-    font-size: 16px; 
+button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
 }
 
-.btn-secondary { 
-    background: #17a2b8; 
-    color: white; 
-    margin-top: 10px; 
-    width: 100%; 
-}
+.btn-primary { background: #3a86ff; color: white; width: 100%; font-size: 16px; }
+.btn-secondary { background: #48bfe3; color: white; margin-top: 10px; width: 100%; }
+.btn-success { background: #38b000; color: white; padding: 6px 12px; font-size: 12px;}
+.btn-danger { background: #d00000; color: white; padding: 6px 12px; font-size: 12px;}
+.btn-warning { background: #ffaa00; color: #0a1128; padding: 6px 12px; font-size: 12px;}
 
-.btn-success { 
-    background: #28a745; 
-    color: white; 
-    padding: 5px 10px; 
-    font-size: 12px;
-}
-
-.btn-danger { 
-    background: #dc3545; 
-    color: white; 
-    padding: 5px 10px; 
-    font-size: 12px;
-}
-
-.btn-warning { 
-    background: #ffc107; 
-    color: black; 
-    padding: 5px 10px; 
-    font-size: 12px;
-}
-
-.hidden { 
-    display: none !important; 
-}
+.hidden { display: none !important; }
 
 .status-box { 
     margin-top: 15px; 
     padding: 15px; 
-    border-radius: 5px; 
-    background: #e9ecef; 
+    border-radius: 8px; 
+    background: rgba(255,255,255,0.1); 
     text-align: center; 
-    font-weight: bold;
+    font-weight: 500;
 }
 
-.qr-container { 
-    text-align: center; 
-    margin-top: 15px; 
-    display: flex; 
-    justify-content: center; 
-}
+.qr-container { text-align: center; margin-top: 15px; display: flex; justify-content: center; flex-direction: column; align-items: center;}
+.qr-container canvas { border: 8px solid white; border-radius: 8px; }
 
-table { 
-    width: 100%; 
-    border-collapse: collapse; 
-    margin-top: 15px; 
-}
+table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+th, td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left; }
+th { background: rgba(0,0,0,0.2); color: #48bfe3; font-weight: 600;}
 
-th, td { 
-    padding: 12px; 
-    border-bottom: 1px solid #ddd; 
-    text-align: left; 
-}
-
-th { 
-    background: #007bff; 
-    color: white; 
-}
-
-.badge-pending { 
-    background: #ffc107; 
-    padding: 4px 8px; 
-    border-radius: 12px; 
-    font-size: 12px;
-}
-
-.badge-approved { 
-    background: #28a745; 
-    color: white; 
-    padding: 4px 8px; 
-    border-radius: 12px; 
-    font-size: 12px;
-}
-
-.badge-checkedin { 
-    background: #17a2b8; 
-    color: white; 
-    padding: 4px 8px; 
-    border-radius: 12px; 
-    font-size: 12px;
-}
+.badge-pending { background: #ffaa00; color: #0a1128; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;}
+.badge-approved { background: #38b000; color: white; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;}
+.badge-checkedin { background: #48bfe3; color: #0a1128; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;}
