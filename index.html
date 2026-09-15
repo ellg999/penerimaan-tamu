@@ -3,21 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Tamu - Sistem Penerimaan Tamu</title>
+    <title>Sistem Penerimaan Tamu Terpadu</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Portal Buku Tamu Digital</h1>
-            <p class="soft-text">Jadwalkan kunjungan Anda dengan mudah.</p>
-            <nav>
-                <a href="index.html">Portal Tamu</a> | 
-                <a href="dashboard.html">Dashboard Staf</a>
-            </nav>
-        </header>
+    <header class="main-header">
+        <h1>Penerimaan Tamu Terpadu</h1>
+        <p class="soft-text">Portal Digital Jadwal Kunjungan Sekolah</p>
+        
+        <!-- Fitur Switch Toggle -->
+        <div class="toggle-wrapper">
+            <span class="toggle-label soft-text" id="labelTamu">Portal Tamu</span>
+            <label class="switch">
+                <input type="checkbox" id="viewToggle">
+                <span class="slider round"></span>
+            </label>
+            <span class="toggle-label soft-text" id="labelDashboard">Dashboard</span>
+        </div>
+    </header>
 
+    <!-- PORTAL TAMU VIEW -->
+    <div id="guestView" class="view-section container">
         <div class="card">
             <h2>Form Pengajuan Kunjungan</h2>
             <form id="guestForm">
@@ -34,7 +41,6 @@
                         <option value="Siswa">Siswa</option>
                     </select>
                 </div>
-                <!-- Kolom NISN akan muncul jika kategori = Siswa -->
                 <div class="form-group hidden" id="nisnGroup">
                     <label>NISN (Wajib untuk Siswa)</label>
                     <input type="text" id="guestNISN">
@@ -42,8 +48,9 @@
                 <div class="form-group">
                     <label>Pihak yang Dituju (Host)</label>
                     <select id="hostName" required>
-                        <option value="Kepala Sekolah">Kepala Sekolah</option>
-                        <option value="Staf TU">Staf TU</option>
+                        <option value="Bpk. Budi (Kepsek)">Bpk. Budi (Kepsek)</option>
+                        <option value="Ibu Ani (Guru Matematika)">Ibu Ani (Guru Matematika)</option>
+                        <option value="Pak Joko (Tata Usaha)">Pak Joko (Tata Usaha)</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -56,7 +63,7 @@
 
         <div class="card">
             <h2>Cek Status & QR Code</h2>
-            <p class="soft-text">Masukkan nama Anda untuk melihat status jadwal dan tiket digital.</p>
+            <p class="soft-text-dark">Masukkan nama Anda untuk melihat status persetujuan.</p>
             <div class="form-group">
                 <input type="text" id="checkName" placeholder="Nama Lengkap Anda">
                 <button onclick="checkStatus()" class="btn-secondary">Cek Status</button>
@@ -65,6 +72,32 @@
             <div id="qrcode" class="qr-container"></div>
         </div>
     </div>
+
+    <!-- DASHBOARD VIEW -->
+    <div id="dashboardView" class="view-section container-dashboard hidden">
+        <div class="card">
+            <h2>Manajemen Antrean & Kunjungan</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nama Tamu</th>
+                            <th>Kategori</th>
+                            <th>Host Tujuan</th>
+                            <th>Waktu</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentsTable">
+                        <!-- Render dari JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
