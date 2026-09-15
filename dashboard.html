@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Dashboard Staf & Resepsionis</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container-dashboard">
@@ -12,7 +12,7 @@
             <h1>Dashboard Manajemen Tamu</h1>
             <nav>
                 <a href="index.html">Portal Tamu</a> | 
-                <a href="dashboard.html">Dashboard</a>
+                <a href="dashboard.html">Dashboard Staf</a>
             </nav>
         </header>
 
@@ -25,20 +25,19 @@
                             <th>ID</th>
                             <th>Nama Tamu</th>
                             <th>Kategori</th>
-                            <th>Tujuan</th>
+                            <th>Host Tujuan</th>
                             <th>Waktu</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="appointmentsTable">
-                        <!-- Data diisi oleh JS -->
+                        <!-- Data akan di-render oleh JavaScript -->
                     </tbody>
                 </table>
             </div>
-            <button class="btn-danger" onclick="clearData()">Reset Semua Data (Demo)</button>
         </div>
     </div>
-    <script src="js/dashboard.js"></script>
+    <script src="dashboard.js"></script>
 </body>
 </html>
