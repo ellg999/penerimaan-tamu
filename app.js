@@ -1,8 +1,8 @@
-// Simulasi Kategori Tamu (Munculkan NISN jika Siswa)
 const categorySelect = document.getElementById('guestCategory');
 const nisnGroup = document.getElementById('nisnGroup');
 const nisnInput = document.getElementById('guestNISN');
 
+// Memunculkan kolom NISN jika kategori tamu adalah Siswa
 categorySelect.addEventListener('change', function() {
     if (this.value === 'Siswa') {
         nisnGroup.classList.remove('hidden');
@@ -14,7 +14,6 @@ categorySelect.addEventListener('change', function() {
     }
 });
 
-// Pendaftaran Jadwal Baru
 document.getElementById('guestForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -26,10 +25,10 @@ document.getElementById('guestForm').addEventListener('submit', function(e) {
 
     let appointments = JSON.parse(localStorage.getItem('appointments')) || [];
 
-    // Validasi Jadwal Ganda (Host dan Waktu yang sama persis)
+    // Validasi Pencegahan Jadwal Ganda
     const isConflict = appointments.some(app => app.host === host && app.datetime === datetime && app.status !== 'Cancelled');
     if (isConflict) {
-        alert('Maaf, jadwal pada waktu tersebut untuk ' + host + ' sudah terisi. Silakan pilih waktu lain.');
+        alert('Jadwal bentrok: Slot waktu untuk ' + host + ' sudah terisi. Silakan pilih waktu lain.');
         return;
     }
 
@@ -46,19 +45,18 @@ document.getElementById('guestForm').addEventListener('submit', function(e) {
     appointments.push(newAppointment);
     localStorage.setItem('appointments', JSON.stringify(appointments));
 
-    alert('Jadwal berhasil diajukan dengan status PENDING. Menunggu persetujuan Host.');
+    alert('Jadwal diajukan! Menunggu Approval dari Host.');
     this.reset();
     nisnGroup.classList.add('hidden');
 });
 
-// Cek Status & QR
 function checkStatus() {
     const nameToCheck = document.getElementById('checkName').value.trim().toLowerCase();
     const resultBox = document.getElementById('statusResult');
     const qrBox = document.getElementById('qrcode');
     
     resultBox.classList.add('hidden');
-    qrBox.innerHTML = ''; // bersihkan QR lama
+    qrBox.innerHTML = ''; 
 
     if (!nameToCheck) return;
 
@@ -67,20 +65,17 @@ function checkStatus() {
 
     if (appointment) {
         resultBox.classList.remove('hidden');
-        resultBox.innerHTML = `Status Anda: <span style="color: ${appointment.status === 'Approved' ? 'green' : 'orange'}">${appointment.status}</span><br>
+        resultBox.innerHTML = `Status: <span style="color: ${appointment.status === 'Approved' ? '#38b000' : '#ffaa00'}">${appointment.status}</span><br>
                                Waktu: ${new Date(appointment.datetime).toLocaleString()}<br>
-                               Bertemu: ${appointment.host}`;
+                               Host: ${appointment.host}`;
         
-        // Jika Approved, Generate QR Code Digital Ticket
+        // Menerbitkan QR Code jika status telah di-Approve
         if (appointment.status === 'Approved') {
-            const qrData = `ID:${appointment.id}|Nama:${appointment.name}|Host:${appointment.host}`;
-            new QRCode(qrBox, {
-                text: qrData,
-                width: 128,
-                height: 128
-            });
+            const qrData = `ID:${appointment.id}|Nama:${appointment.name}`;
+            new QRCode(qrBox, { text: qrData, width: 140, height: 140 });
+            
             let caption = document.createElement("p");
-            caption.innerHTML = "<small>Tunjukkan QR ini ke Resepsionis saat tiba.</small>";
+            caption.innerHTML = "<small class='soft-text' style='margin-top:10px;'>QR Code ini adalah tiket masuk digital Anda.</small>";
             qrBox.appendChild(caption);
         }
     } else {
