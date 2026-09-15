@@ -1,25 +1,161 @@
-* { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-body { background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
-.container { max-width: 600px; margin: auto; }
-.container-dashboard { max-width: 1000px; margin: auto; }
-header { text-align: center; margin-bottom: 30px; }
-nav a { color: #007bff; text-decoration: none; font-weight: bold; margin: 0 10px; }
-.card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
-.form-group { margin-bottom: 15px; }
-label { display: block; margin-bottom: 5px; font-weight: bold; }
-input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
-button { padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-.btn-primary { background: #007bff; color: white; width: 100%; font-size: 16px; }
-.btn-secondary { background: #17a2b8; color: white; margin-top: 10px; width: 100%; }
-.btn-success { background: #28a745; color: white; padding: 5px 10px; font-size: 12px;}
-.btn-danger { background: #dc3545; color: white; padding: 5px 10px; font-size: 12px;}
-.btn-warning { background: #ffc107; color: black; padding: 5px 10px; font-size: 12px;}
-.hidden { display: none !important; }
-.status-box { margin-top: 15px; padding: 15px; border-radius: 5px; background: #e9ecef; text-align: center; font-weight: bold;}
-.qr-container { text-align: center; margin-top: 15px; display: flex; justify-content: center; }
-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; }
-th { background: #007bff; color: white; }
-.badge-pending { background: #ffc107; padding: 4px 8px; border-radius: 12px; font-size: 12px;}
-.badge-approved { background: #28a745; color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;}
-.badge-checkedin { background: #17a2b8; color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;}
+* { 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+body { 
+    background-color: #f4f7f6; 
+    margin: 0; 
+    padding: 20px; 
+    color: #333; 
+}
+
+.container { 
+    max-width: 600px; 
+    margin: auto; 
+}
+
+.container-dashboard { 
+    max-width: 1000px; 
+    margin: auto; 
+}
+
+header { 
+    text-align: center; 
+    margin-bottom: 30px; 
+}
+
+nav a { 
+    color: #007bff; 
+    text-decoration: none; 
+    font-weight: bold; 
+    margin: 0 10px; 
+}
+
+.card { 
+    background: white; 
+    padding: 25px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+    margin-bottom: 20px; 
+}
+
+.form-group { 
+    margin-bottom: 15px; 
+}
+
+label { 
+    display: block; 
+    margin-bottom: 5px; 
+    font-weight: bold; 
+}
+
+input, select { 
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+}
+
+button { 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-weight: bold; 
+}
+
+.btn-primary { 
+    background: #007bff; 
+    color: white; 
+    width: 100%; 
+    font-size: 16px; 
+}
+
+.btn-secondary { 
+    background: #17a2b8; 
+    color: white; 
+    margin-top: 10px; 
+    width: 100%; 
+}
+
+.btn-success { 
+    background: #28a745; 
+    color: white; 
+    padding: 5px 10px; 
+    font-size: 12px;
+}
+
+.btn-danger { 
+    background: #dc3545; 
+    color: white; 
+    padding: 5px 10px; 
+    font-size: 12px;
+}
+
+.btn-warning { 
+    background: #ffc107; 
+    color: black; 
+    padding: 5px 10px; 
+    font-size: 12px;
+}
+
+.hidden { 
+    display: none !important; 
+}
+
+.status-box { 
+    margin-top: 15px; 
+    padding: 15px; 
+    border-radius: 5px; 
+    background: #e9ecef; 
+    text-align: center; 
+    font-weight: bold;
+}
+
+.qr-container { 
+    text-align: center; 
+    margin-top: 15px; 
+    display: flex; 
+    justify-content: center; 
+}
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 15px; 
+}
+
+th, td { 
+    padding: 12px; 
+    border-bottom: 1px solid #ddd; 
+    text-align: left; 
+}
+
+th { 
+    background: #007bff; 
+    color: white; 
+}
+
+.badge-pending { 
+    background: #ffc107; 
+    padding: 4px 8px; 
+    border-radius: 12px; 
+    font-size: 12px;
+}
+
+.badge-approved { 
+    background: #28a745; 
+    color: white; 
+    padding: 4px 8px; 
+    border-radius: 12px; 
+    font-size: 12px;
+}
+
+.badge-checkedin { 
+    background: #17a2b8; 
+    color: white; 
+    padding: 4px 8px; 
+    border-radius: 12px; 
+    font-size: 12px;
+}
