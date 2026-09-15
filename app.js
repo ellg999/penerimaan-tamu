@@ -1,8 +1,36 @@
+// ==================== LOGIKA SWITCH VIEW ====================
+const viewToggle = document.getElementById('viewToggle');
+const guestView = document.getElementById('guestView');
+const dashboardView = document.getElementById('dashboardView');
+const labelTamu = document.getElementById('labelTamu');
+const labelDashboard = document.getElementById('labelDashboard');
+
+// Set label aktif awal
+labelTamu.classList.add('active');
+
+viewToggle.addEventListener('change', function() {
+    if (this.checked) {
+        // Pindah ke Dashboard
+        guestView.classList.add('hidden');
+        dashboardView.classList.remove('hidden');
+        labelDashboard.classList.add('active');
+        labelTamu.classList.remove('active');
+        loadAppointments(); // Refresh tabel saat masuk dashboard
+    } else {
+        // Pindah ke Portal Tamu
+        dashboardView.classList.add('hidden');
+        guestView.classList.remove('hidden');
+        labelTamu.classList.add('active');
+        labelDashboard.classList.remove('active');
+    }
+});
+
+
+// ==================== LOGIKA PORTAL TAMU ====================
 const categorySelect = document.getElementById('guestCategory');
 const nisnGroup = document.getElementById('nisnGroup');
 const nisnInput = document.getElementById('guestNISN');
 
-// Memunculkan kolom NISN jika kategori tamu adalah Siswa
 categorySelect.addEventListener('change', function() {
     if (this.value === 'Siswa') {
         nisnGroup.classList.remove('hidden');
@@ -65,21 +93,79 @@ function checkStatus() {
 
     if (appointment) {
         resultBox.classList.remove('hidden');
-        resultBox.innerHTML = `Status: <span style="color: ${appointment.status === 'Approved' ? '#38b000' : '#ffaa00'}">${appointment.status}</span><br>
+        resultBox.innerHTML = `Status: <strong>${appointment.status}</strong><br>
                                Waktu: ${new Date(appointment.datetime).toLocaleString()}<br>
                                Host: ${appointment.host}`;
         
-        // Menerbitkan QR Code jika status telah di-Approve
+        // Menerbitkan QR Code jika Approved
         if (appointment.status === 'Approved') {
             const qrData = `ID:${appointment.id}|Nama:${appointment.name}`;
             new QRCode(qrBox, { text: qrData, width: 140, height: 140 });
             
             let caption = document.createElement("p");
-            caption.innerHTML = "<small class='soft-text' style='margin-top:10px;'>QR Code ini adalah tiket masuk digital Anda.</small>";
+            caption.innerHTML = "<small class='soft-text-dark' style='margin-top:10px; display:block;'>Scan tiket ini di Lobi</small>";
             qrBox.appendChild(caption);
         }
     } else {
         resultBox.classList.remove('hidden');
-        resultBox.innerHTML = 'Data tidak ditemukan.';
+        resultBox.innerHTML = 'Data jadwal tidak ditemukan.';
     }
+}
+
+
+// ==================== LOGIKA DASHBOARD ====================
+function loadAppointments() {
+    const tableBody = document.getElementById('appointmentsTable');
+    let appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+    tableBody.innerHTML = '';
+
+    if (appointments.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;" class="soft-text-dark">Belum ada antrean kunjungan.</td></tr>';
+        return;
+    }
+
+    appointments.forEach((app, index) => {
+        let badgeClass = 'badge-pending';
+        if (app.status === 'Approved') badgeClass = 'badge-approved';
+        if (app.status === 'Checked-in') badgeClass = 'badge-checkedin';
+
+        let actions = '';
+        if (app.status === 'Pending') {
+            actions = `<button class="btn-success" onclick="updateStatus(${index}, 'Approved')">Approve</button>
+                       <button class="btn-danger" onclick="updateStatus(${index}, 'Cancelled')">Batal</button>`;
+        } else if (app.status === 'Approved') {
+            actions = `<button class="btn-warning" onclick="updateStatus(${index}, 'Checked-in')">Scan Kehadiran</button>
+                       <button class="btn-danger" onclick="updateStatus(${index}, 'Cancelled')">Batal</button>`;
+        } else if (app.status === 'Checked-in') {
+             actions = `<span class="soft-text-dark">Tamu Hadir</span>`;
+        } else {
+             actions = `<span class="soft-text-dark">Alasan: ${app.cancelReason || '-'}</span>`;
+        }
+
+        const row = `<tr>
+            <td>${app.id}</td>
+            <td><strong>${app.name}</strong> ${app.category === 'Siswa' ? '<br><small class="soft-text-dark">NISN: '+app.nisn+'</small>' : ''}</td>
+            <td>${app.category}</td>
+            <td>${app.host}</td>
+            <td>${new Date(app.datetime).toLocaleString()}</td>
+            <td><span class="${badgeClass}">${app.status}</span></td>
+            <td>${actions}</td>
+        </tr>`;
+        tableBody.insertAdjacentHTML('beforeend', row);
+    });
+}
+
+function updateStatus(index, newStatus) {
+    let appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+    
+    // Manajemen Pembatalan dengan alasan
+    if(newStatus === 'Cancelled') {
+        let reason = prompt('Masukkan alasan pembatalan kunjungan:');
+        if(reason === null || reason.trim() === '') return; 
+        appointments[index].cancelReason = reason;
+    }
+    
+    appointments[index].status = newStatus;
+    localStorage.setItem('appointments', JSON.stringify(appointments));
+    loadAppointments(); // Refresh tabel setelah status berubah
 }
