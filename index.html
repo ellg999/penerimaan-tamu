@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Tamu - Sistem Penerimaan Tamu</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Portal Buku Tamu Digital</h1>
+            <p>Jadwalkan kunjungan Anda dengan mudah.</p>
+            <nav>
+                <a href="index.html">Portal Tamu</a> | 
+                <a href="dashboard.html">Dashboard Staf</a>
+            </nav>
+        </header>
+
+        <div class="card">
+            <h2>Form Pengajuan Kunjungan</h2>
+            <form id="guestForm">
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="guestName" required>
+                </div>
+                <div class="form-group">
+                    <label>Kategori Tamu</label>
+                    <select id="guestCategory" required>
+                        <option value="">Pilih Kategori...</option>
+                        <option value="Kolega">Kolega</option>
+                        <option value="Orang Tua">Orang Tua</option>
+                        <option value="Siswa">Siswa</option>
+                    </select>
+                </div>
+                <div class="form-group hidden" id="nisnGroup">
+                    <label>NISN (Wajib untuk Siswa)</label>
+                    <input type="text" id="guestNISN">
+                </div>
+                <div class="form-group">
+                    <label>Pihak yang Dituju (Host)</label>
+                    <select id="hostName" required>
+                        <option value="Bpk. Budi (Kepsek)">Bpk. Budi (Kepsek)</option>
+                        <option value="Ibu Ani (Guru Matematika)">Ibu Ani (Guru Matematika)</option>
+                        <option value="Pak Joko (Tata Usaha)">Pak Joko (Tata Usaha)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Waktu Kunjungan</label>
+                    <input type="datetime-local" id="visitTime" required>
+                </div>
+                <button type="submit" class="btn-primary">Ajukan Jadwal</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Cek Status & QR Code</h2>
+            <p>Masukkan nama Anda untuk melihat status jadwal dan mendapatkan tiket QR Code.</p>
+            <div class="form-group">
+                <input type="text" id="checkName" placeholder="Nama Lengkap Anda">
+                <button onclick="checkStatus()" class="btn-secondary">Cek Status</button>
+            </div>
+            <div id="statusResult" class="status-box hidden"></div>
+            <div id="qrcode" class="qr-container"></div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>
