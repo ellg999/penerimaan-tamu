@@ -29,7 +29,7 @@ document.getElementById('guestForm').addEventListener('submit', function(e) {
     // Validasi Jadwal Ganda (Host dan Waktu yang sama persis)
     const isConflict = appointments.some(app => app.host === host && app.datetime === datetime && app.status !== 'Cancelled');
     if (isConflict) {
-        alert('Maaf, jadwal pada waktu tersebut untuk host ' + host + ' sudah terisi. Silakan pilih waktu lain.');
+        alert('Maaf, jadwal pada waktu tersebut untuk ' + host + ' sudah terisi. Silakan pilih waktu lain.');
         return;
     }
 
